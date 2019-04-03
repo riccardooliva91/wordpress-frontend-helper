@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * Plugin Name: WP Frontend Helper
+ * Description: A frontend developer buddy in developing and mantaining Wordpress themes.
+ * Author: Riccardo Oliva
+ * Version: 0.1
+ */
+
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+/**
+ * Validates config and instantiates objects
+ *
+ * @param string $option_name
+ * @param string $option_value
+ * @param string $expected_namespace
+ * @param array $constructor_args
+ *
+ * @return mixed
+ * @throws \Wpfh\Exceptions\InvalidConfiguration
+ */
+function _wpfh_instantiate_object( string $option_name, string $option_value, string $expected_namespace, array $constructor_args ) {
+	if ( empty( $option_value ) ) {
+		throw new \Wpfh\Exceptions\InvalidConfiguration( sprintf( 'The %s option should be a class name/namespace, got empty string.', $option_name ) );
+	}
+
+	try {
+		$object = $option_value::init( ...$constructor_args );
+	} catch ( \Exception $e ) {
+		throw new \Wpfh\Exceptions\InvalidConfiguration( sprintf( 'Could not instantiate class %s.', $option_value ) );
+	}
+
+	if ( ! $object instanceof $expected_namespace ) {
+		throw new \Wpfh\Exceptions\InvalidConfiguration( sprintf( '%s should be an extension of %s.', get_class( $object ), $expected_namespace ) );
+	}
+
+	return $object;
+}
+
+/**
+ * Inits the plugin options
+ */
+add_action( 'plugins_loaded', function () {
+	\Wpfh\WpfhConfig::init();
+} );
+
+/**
+ * Inits the plugin classes
+ */
+add_action( \Wpfh\WpfhConfig::init()->get( 'wpfh_init_hook' ), function () {
+	$config = \Wpfh\WpfhConfig::init();
+
+	$assets_observer   = $config->get( 'wpfh_assets_observer_class' );
+	$assets_manager    = $config->get( 'wpfh_assets_manager_class' );
+	$helper            = $config->get( 'wpfh_helper_class' );
+
+	$assets_observer_object   = _wpfh_instantiate_object( 'wpfh_assets_observer_class', $assets_observer, \Wpfh\Assets\AssetObserver::class, [] );
+	$assets_manager_object    = _wpfh_instantiate_object( 'wpfh_assets_manager_class', $assets_manager, \Wpfh\Assets\AssetsManager::class, [ $assets_observer_object ] );
+
+	_wpfh_instantiate_object( 'wpfh_helper_class', $helper, \Wpfh\Wpfh::class, [ $assets_manager_object ] );
+} );
