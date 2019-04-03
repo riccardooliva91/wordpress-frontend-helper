@@ -51,8 +51,8 @@ class AssetObserver {
 			return;
 		}
 
-		apply_filters( sprintf( 'wpfh/on_%s_%s', $arguments[1], $name ), '' );  // Generic (i.e. 'on_script_enqueue')
-		apply_filters( sprintf( 'wpfh/on_%s_%s', $arguments[0], $name ), '' );  // Specific (i.e. 'on_jquery_enqueue')
+		apply_filters( sprintf( 'wpfh/on_%s_%s', $arguments[1], $name ), null );  // Generic (i.e. 'on_script_enqueue')
+		apply_filters( sprintf( 'wpfh/on_%s_%s', $arguments[0], $name ), null );  // Specific (i.e. 'on_jquery_enqueue')
 	}
 
 }
