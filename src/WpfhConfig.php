@@ -16,7 +16,6 @@ class WpfhConfig {
 		'wpfh_helper_class'            => \Wpfh\Wpfh::class,
 		'wpfh_assets_manager_class'    => \Wpfh\Assets\AssetsManager::class,
 		'wpfh_assets_observer_class'   => \Wpfh\Assets\AssetObserver::class,
-		'wpfh_templating_engine_class' => \Wpfh\Templating\TemplatingEngine::class,
 	];
 
 	/**
