@@ -2,9 +2,9 @@
 
 /**
  * Plugin Name: WP Frontend Helper
- * Description: A frontend developer buddy in developing and mantaining Wordpress themes.
+ * Description: A set of handful tools to ease your life as a frontend WP developer.
  * Author: Riccardo Oliva
- * Version: 0.1
+ * Version: 1.0.0
  */
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
