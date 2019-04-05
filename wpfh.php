@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Plugin Name: WP Frontend Helper
  * Description: A set of handful tools to ease your life as a frontend WP developer.
