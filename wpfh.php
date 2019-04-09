@@ -7,6 +7,7 @@
  */
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+defined( 'WPFH_VERSION' ) || define( 'WPFH_VERSION', 1.1 );
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -44,6 +45,7 @@ function _wpfh_instantiate_object( string $option_name, string $option_value, st
  */
 add_action( 'plugins_loaded', function () {
 	\Wpfh\WpfhConfig::init();
+	\Wpfh\WpfhOptions::init();
 } );
 
 /**
@@ -52,12 +54,12 @@ add_action( 'plugins_loaded', function () {
 add_action( \Wpfh\WpfhConfig::init()->get( 'wpfh_init_hook' ), function () {
 	$config = \Wpfh\WpfhConfig::init();
 
-	$assets_observer   = $config->get( 'wpfh_assets_observer_class' );
-	$assets_manager    = $config->get( 'wpfh_assets_manager_class' );
-	$helper            = $config->get( 'wpfh_helper_class' );
+	$assets_observer = $config->get( 'wpfh_assets_observer_class' );
+	$assets_manager  = $config->get( 'wpfh_assets_manager_class' );
+	$helper          = $config->get( 'wpfh_helper_class' );
 
-	$assets_observer_object   = _wpfh_instantiate_object( 'wpfh_assets_observer_class', $assets_observer, \Wpfh\Assets\AssetObserver::class, [] );
-	$assets_manager_object    = _wpfh_instantiate_object( 'wpfh_assets_manager_class', $assets_manager, \Wpfh\Assets\AssetsManager::class, [ $assets_observer_object ] );
+	$assets_observer_object = _wpfh_instantiate_object( 'wpfh_assets_observer_class', $assets_observer, \Wpfh\Assets\AssetObserver::class, [] );
+	$assets_manager_object  = _wpfh_instantiate_object( 'wpfh_assets_manager_class', $assets_manager, \Wpfh\Assets\AssetsManager::class, [ $assets_observer_object ] );
 
 	_wpfh_instantiate_object( 'wpfh_helper_class', $helper, \Wpfh\Wpfh::class, [ $assets_manager_object ] );
 } );
