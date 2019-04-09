@@ -46,9 +46,13 @@ function _wpfh_instantiate_object( string $option_name, string $option_value, st
 add_action( 'plugins_loaded', function () {
 	\Wpfh\WpfhConfig::init();
 	$options       = \Wpfh\WpfhOptions::init();
+
+	// Update media options if needed
 	$media_options = $options->get( 'media' );
-	if ( $media_options['enable_version'] && ( empty( $media_options['tag'] ) || $media_options['auto_bust_threshold'] < time() ) ) { // check treshold and interval
-		$media_options['tag'] = uniqid();
+	if ( $media_options['enable_version'] && ( empty( $media_options['tag'] ) || $media_options['auto_bust_threshold'] < time() + $media_options['auto_bust_interval'] ) ) {
+		$media_options['tag']                 = uniqid();
+		$media_options['auto_bust_threshold'] = time();
+		$options->set( 'media', $media_options, true );
 	}
 } );
 
