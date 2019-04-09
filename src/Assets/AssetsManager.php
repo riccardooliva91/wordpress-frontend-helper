@@ -124,6 +124,25 @@ class AssetsManager {
 	}
 
 	/**
+	 * Shorthand, more generic version of 'apply_condition'
+	 *
+	 * @param string|bool|callable $condition
+	 *
+	 * @return bool
+	 */
+	public function if( $condition ): bool {
+		if ( is_string( $condition ) ) {
+			return $this->apply_condition( $condition );
+		} elseif ( is_bool( $condition ) ) {
+			return $condition;
+		} elseif ( is_callable( $condition ) ) {
+			return boolval( $condition() );
+		}
+
+		return false;
+	}
+
+	/**
 	 * Apply a condition
 	 *
 	 * @param string $name
