@@ -98,9 +98,10 @@ class WpfhOptions {
 	protected function get_defaults(): array {
 		return [
 			'media' => [
-				'enable_version' => false,
-				'version_tag'    => '',
-				'auto_burst'     => 0,
+				'enable_version'      => false,
+				'version_tag'         => '',
+				'auto_bust_threshold' => 0,
+				'auto_bust_interval'  => 0,
 			]
 		];
 	}
