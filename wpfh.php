@@ -47,7 +47,7 @@ add_action( 'plugins_loaded', function () {
 	\Wpfh\WpfhConfig::init();
 	$options       = \Wpfh\WpfhOptions::init();
 	$media_options = $options->get( 'media' );
-	if ( $media_options['enable_version'] && ( empty( $media_options['tag'] ) || $media_options['auto_bust_threshold'] < time() ) ) {
+	if ( $media_options['enable_version'] && ( empty( $media_options['tag'] ) || $media_options['auto_bust_threshold'] < time() ) ) { // check treshold and interval
 		$media_options['tag'] = uniqid();
 	}
 } );
