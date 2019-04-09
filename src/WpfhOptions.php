@@ -86,7 +86,7 @@ class WpfhOptions {
 			'media' => [
 				'enable_version'   => false,
 				'version_tag'      => '',
-				'auto_burst_after' => 0,
+				'auto_burst' => 0,
 			]
 		];
 	}

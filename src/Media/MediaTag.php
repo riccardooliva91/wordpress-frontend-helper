@@ -69,7 +69,10 @@ class MediaTag {
 	public function __toString(): string {
 		$data = [];
 		foreach ( $this->meta as $key => $value ) {
-			$data[] = is_null( $value ) ? $key : sprintf( '%s="%s"', $key, $value );
+			if ( 'src' === $key && null !== $value ) {
+				$value = $this->apply_version( $value );
+			}
+			$data[] = null !== $value ? sprintf( '%s="%s"', $key, $value ) : $key;
 		}
 		$data[] = '/';
 
@@ -85,5 +88,18 @@ class MediaTag {
 	 */
 	protected function handle_camel_case( string $name ): string {
 		return strtolower( implode( '-', preg_split( '/(?=[A-Z])/', $name ) ) );
+	}
+
+	protected function apply_version( string $src ): string {
+		$tag     = '';
+		$wpfh_cb = get_template_directory() . '/.wpfh_cb';
+
+		if ( $this->media_options['enable_version'] ) {
+			$tag = $this->media_options['version_tag'];
+		} elseif ( file_exists( $wpfh_cb ) ) {
+			$tag = trim( file_get_contents( $wpfh_cb ) );
+		}
+
+		return empty( $tag ) ? $src : sprintf( '%s?v%s', $src, $tag );
 	}
 }
