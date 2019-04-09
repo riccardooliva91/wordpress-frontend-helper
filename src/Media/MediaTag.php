@@ -51,7 +51,7 @@ class MediaTag {
 		} elseif ('src' == $name && is_string($value)) {
 			$this->src = $value;
 		} else {
-
+			//
 		}
 
 		return $this;
