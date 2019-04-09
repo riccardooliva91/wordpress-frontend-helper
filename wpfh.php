@@ -64,10 +64,16 @@ add_action( \Wpfh\WpfhConfig::init()->get( 'wpfh_init_hook' ), function () {
 
 	$assets_observer = $config->get( 'wpfh_assets_observer_class' );
 	$assets_manager  = $config->get( 'wpfh_assets_manager_class' );
+	$media_tag       = $config->get( 'wpfh_media_tag_class' );
+	$media_printer   = $config->get( 'wpfh_media_printer_class' );
 	$helper          = $config->get( 'wpfh_helper_class' );
 
 	$assets_observer_object = _wpfh_instantiate_object( 'wpfh_assets_observer_class', $assets_observer, \Wpfh\Assets\AssetObserver::class, [] );
 	$assets_manager_object  = _wpfh_instantiate_object( 'wpfh_assets_manager_class', $assets_manager, \Wpfh\Assets\AssetsManager::class, [ $assets_observer_object ] );
+	$media_tag_object       = _wpfh_instantiate_object( 'wpfh_media_tag_class', $media_tag, \Wpfh\Media\MediaTag::class, [] );
+	$media_printer_object   = _wpfh_instantiate_object( 'wpfh_media_printer_class', $media_printer, \Wpfh\Media\MediaPrinter::class, [ $media_tag_object ] );
 
-	_wpfh_instantiate_object( 'wpfh_helper_class', $helper, \Wpfh\Wpfh::class, [ $assets_manager_object ] );
+	$helper_object = _wpfh_instantiate_object( 'wpfh_helper_class', $helper, \Wpfh\Wpfh::class, [] );
+	$helper_object->set_assets_manager( $assets_manager_object );
+	$helper_object->set_media_printer( $media_printer_object );
 } );

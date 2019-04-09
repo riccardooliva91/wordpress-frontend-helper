@@ -2,6 +2,7 @@
 
 namespace Wpfh;
 
+use Wpfh\Media\MediaPrinter;
 use Wpfh\Assets\AssetsManager;
 use Wpfh\Templating\TemplatingEngine;
 
@@ -17,25 +18,19 @@ class Wpfh {
 	private $assets_manager;
 
 	/**
-	 * Wpfh constructor.
-	 *
-	 * @param AssetsManager $assets
+	 * @var MediaPrinter
 	 */
-	private function __construct( AssetsManager $assets ) {
-		$this->assets_manager    = $assets;
-	}
+	private $media_printer;
 
 	/**
 	 * Builder
 	 *
-	 * @param AssetsManager $assets
-	 *
 	 * @return Wpfh
 	 */
-	public static function init( AssetsManager $assets ): self {
+	public static function init(): self {
 		$obj = null;
 		if ( ! $obj ) {
-			$obj = new static( $assets );
+			$obj = new static();
 
 			add_filter( 'wpfh/get_helper', [ $obj, 'get_helper' ] );
 			add_filter( 'wpfh/get_assets_manager', [ $obj, 'get_assets_manager' ] );
@@ -64,6 +59,47 @@ class Wpfh {
 	 */
 	public function get_assets_manager(): AssetsManager {
 		return $this->assets_manager;
+	}
+
+	/**
+	 * Set the assets manager
+	 *
+	 * @param AssetsManager $assets
+	 *
+	 * @return Wpfh
+	 *
+	 * @codeCoverageIgnore
+	 */
+	public function set_assets_manager( AssetsManager $assets ): Wpfh {
+		$this->assets_manager = $assets;
+
+		return $this;
+	}
+
+	/**
+	 * Get the assets manager
+	 *
+	 * @return MediaPrinter
+	 *
+	 * @codeCoverageIgnore
+	 */
+	public function get_media_printer(): MediaPrinter {
+		return $this->media_printer;
+	}
+
+	/**
+	 * Set the assets manager
+	 *
+	 * @param MediaPrinter $printer
+	 *
+	 * @return Wpfh
+	 *
+	 * @codeCoverageIgnore
+	 */
+	public function set_media_printer( MediaPrinter $printer ): Wpfh {
+		$this->media_printer = $printer;
+
+		return $this;
 	}
 
 }

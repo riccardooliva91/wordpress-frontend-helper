@@ -12,10 +12,12 @@ class WpfhConfig {
 	 * @var array
 	 */
 	protected $config = [
-		'wpfh_init_hook'               => 'after_setup_theme',
-		'wpfh_helper_class'            => \Wpfh\Wpfh::class,
-		'wpfh_assets_manager_class'    => \Wpfh\Assets\AssetsManager::class,
-		'wpfh_assets_observer_class'   => \Wpfh\Assets\AssetObserver::class,
+		'wpfh_init_hook'             => 'after_setup_theme',
+		'wpfh_helper_class'          => \Wpfh\Wpfh::class,
+		'wpfh_assets_manager_class'  => \Wpfh\Assets\AssetsManager::class,
+		'wpfh_assets_observer_class' => \Wpfh\Assets\AssetObserver::class,
+		'wpfh_media_printer_class'   => \Wpfh\Media\MediaPrinter::class,
+		'wpfh_media_tag_class'       => \Wpfh\Media\MediaTag::class,
 	];
 
 	/**
