@@ -51,13 +51,12 @@ class MediaPrinter {
 	 *
 	 * @param string $name
 	 * @param string $tag
-	 * @param string $src
 	 * @param array $meta = []
 	 *
 	 * @return MediaPrinter
 	 */
-	public function save_media( string $name, string $tag, string $src, array $meta = [] ): MediaPrinter {
-		$this->saved_media[ $name ] = $this->get_tag( $tag, $src, $meta );
+	public function save_media( string $name, string $tag, array $meta = [] ): MediaPrinter {
+		$this->saved_media[ $name ] = $this->get_tag( $tag, $meta );
 
 		return $this;
 	}
@@ -89,25 +88,29 @@ class MediaPrinter {
 	 * Get a media tag html
 	 *
 	 * @param string $tag
-	 * @param string $src
 	 * @param array $meta = []
 	 *
 	 * @return string
 	 */
-	public function get_tag( string $tag, string $src, array $meta = [] ): string {
-		return new MediaTag( $tag, $src, $meta );
+	public function get_tag( string $tag, array $meta = [] ): string {
+		$media      = new MediaTag( $this->options['media'] );
+		$media->tag = $tag;
+		foreach ( $meta as $key => $value ) {
+			$media->$key = $value;
+		}
+
+		return $media;
 	}
 
 	/**
 	 * Echoes a media tag html
 	 *
 	 * @param string $tag
-	 * @param string $src
 	 * @param array $meta = []
 	 *
 	 * @return string
 	 */
-	public function write_tag( string $tag, string $src, array $meta = [] ): string {
-		echo $this->get_tag( $tag, $src, $meta );
+	public function write_tag( string $tag, array $meta = [] ): string {
+		echo $this->get_tag( $tag, $meta );
 	}
 }
