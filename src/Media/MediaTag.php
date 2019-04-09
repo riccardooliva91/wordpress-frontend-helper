@@ -69,7 +69,7 @@ class MediaTag {
 	public function __toString(): string {
 		$data = [];
 		foreach ( $this->meta as $key => $value ) {
-			$data[] = sprintf( '%s="%s"', $key, $value );
+			$data[] = is_null( $value ) ? $key : sprintf( '%s="%s"', $key, $value );
 		}
 		$data[] = '/';
 
