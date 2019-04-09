@@ -2,6 +2,8 @@
 
 namespace Wpfh;
 
+use Wpfh\Media\MediaTag;
+
 /**
  * Class WpfhOptions
  * @package Wpfh
@@ -74,19 +76,31 @@ class WpfhOptions {
 	 * Set an option
 	 *
 	 * @param string $option_name
+	 * @param mixed $value
+	 * @param bool $save = false
+	 *
+	 * @return WpfhOptions
 	 */
+	public function set( string $option_name, $value, bool $save = false ): WpfhOptions {
+		$this->options[ $option_name ] = $value;
+		if ( $save ) {
+			update_option( $this->options_group_name, $this->options );
+		}
+
+		return $this;
+	}
 
 	/**
 	 * Default options values
 	 *
 	 * @return array
 	 */
-	private function get_defaults(): array {
+	protected function get_defaults(): array {
 		return [
 			'media' => [
-				'enable_version'   => false,
-				'version_tag'      => '',
-				'auto_burst' => 0,
+				'enable_version' => false,
+				'version_tag'    => '',
+				'auto_burst'     => 0,
 			]
 		];
 	}
@@ -96,7 +110,7 @@ class WpfhOptions {
 	 *
 	 * @return void
 	 */
-	private function init_options() {
+	protected function init_options() {
 		$this->options                   = $this->get_defaults();
 		$this->options['plugin_version'] = WPFH_VERSION;
 		add_option( $this->options_group_name, $this->options );
@@ -107,7 +121,7 @@ class WpfhOptions {
 	 *
 	 * @return void
 	 */
-	private function version_update() {
+	protected function version_update() {
 		$this->options                   = array_replace_recursive( $this->get_defaults(), $this->options );
 		$this->options['plugin_version'] = WPFH_VERSION;
 		update_option( $this->options_group_name, $this->options );

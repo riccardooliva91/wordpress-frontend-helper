@@ -90,6 +90,13 @@ class MediaTag {
 		return strtolower( implode( '-', preg_split( '/(?=[A-Z])/', $name ) ) );
 	}
 
+	/**
+	 * Apply the version tag to a src if the conditions allow so
+	 *
+	 * @param string $src
+	 *
+	 * @return string
+	 */
 	protected function apply_version( string $src ): string {
 		$tag     = '';
 		$wpfh_cb = get_template_directory() . '/.wpfh_cb';
