@@ -2,10 +2,112 @@
 
 namespace Wpfh\Media;
 
+use Wpfh\WpfhOptions;
+use Wpfh\Media\MediaTag;
+
 /**
  * Class MediaPrinter
  * @package Wpfh\Media
  */
 class MediaPrinter {
 
+	/**
+	 * @var WpfhOptions
+	 */
+	protected $options;
+
+	/**
+	 * @var array
+	 */
+	protected $saved_media = [];
+
+	/**
+	 * MediaPrinter constructor.
+	 *
+	 * @param WpfhOptions $options
+	 */
+	private function __construct( WpfhOptions $options ) {
+		$this->options = $options;
+	}
+
+	/**
+	 * CLass init
+	 *
+	 * @param WpfhOptions $options
+	 *
+	 * @return MediaPrinter
+	 */
+	public static function init( WpfhOptions $options ): MediaPrinter {
+		$obj = null;
+		if ( ! $obj ) {
+			$obj = new static( $options );
+		}
+
+		return $obj;
+	}
+
+	/**
+	 * Save a media for later use
+	 *
+	 * @param string $name
+	 * @param string $tag
+	 * @param string $src
+	 * @param array $meta = []
+	 *
+	 * @return MediaPrinter
+	 */
+	public function save_media( string $name, string $tag, string $src, array $meta = [] ): MediaPrinter {
+		$this->saved_media[ $name ] = $this->get_tag( $tag, $src, $meta );
+
+		return $this;
+	}
+
+	/**
+	 * Get a saved media
+	 *
+	 * @param string $name
+	 * @param mixed $default = false
+	 *
+	 * @return mixed
+	 */
+	public function get( string $name, $default = false ) {
+		return $this->saved_media[ $name ] ?? $default;
+	}
+
+	/**
+	 * Echoes a saved media
+	 *
+	 * @param string $name
+	 *
+	 * @return void
+	 */
+	public function write( string $name ) {
+		echo $this->saved_media[ $name ] ?? '';
+	}
+
+	/**
+	 * Get a media tag html
+	 *
+	 * @param string $tag
+	 * @param string $src
+	 * @param array $meta = []
+	 *
+	 * @return string
+	 */
+	public function get_tag( string $tag, string $src, array $meta = [] ): string {
+		return new MediaTag( $tag, $src, $meta );
+	}
+
+	/**
+	 * Echoes a media tag html
+	 *
+	 * @param string $tag
+	 * @param string $src
+	 * @param array $meta = []
+	 *
+	 * @return string
+	 */
+	public function write_tag( string $tag, string $src, array $meta = [] ): string {
+		echo $this->get_tag( $tag, $src, $meta );
+	}
 }
