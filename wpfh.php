@@ -45,7 +45,7 @@ function _wpfh_instantiate_object( string $option_name, string $option_value, st
  */
 add_action( 'plugins_loaded', function () {
 	\Wpfh\WpfhConfig::init();
-	$options       = \Wpfh\WpfhOptions::init();
+	$options = \Wpfh\WpfhOptions::init();
 
 	// Update media options if needed
 	$media_options = $options->get( 'media' );
