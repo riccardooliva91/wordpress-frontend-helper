@@ -23,8 +23,10 @@ class CommandsLoader {
 				new MediaVersionBust(),
 			];
 
-			foreach ( $commands as $command ) {
-				\WP_CLI::add_command( $command->get_name(), $command, $command->get_arguments() );
+			if ( class_exists( \WP_CLI::class ) ) {
+				foreach ( $commands as $command ) {
+					\WP_CLI::add_command( $command->get_name(), $command, $command->get_arguments() );
+				}
 			}
 		}
 	}
