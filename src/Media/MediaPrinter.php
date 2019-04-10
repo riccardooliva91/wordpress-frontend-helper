@@ -93,7 +93,7 @@ class MediaPrinter {
 	 * @return string
 	 */
 	public function get_tag( string $tag, array $meta = [] ): string {
-		$media      = new MediaTag( $this->options['media'] );
+		$media      = MediaTag::init( $this->options['media'] );
 		$media->tag = $tag;
 		foreach ( $meta as $key => $value ) {
 			$media->$key = $value;

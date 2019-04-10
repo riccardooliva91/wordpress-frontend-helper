@@ -24,12 +24,23 @@ class MediaTag {
 	protected $meta = [];
 
 	/**
-	 * TagGenerator constructor.
+	 * MediaTag constructor.
 	 *
 	 * @param array $media_options = []
 	 */
-	public function __construct( array $media_options = [] ) {
+	private function __construct( array $media_options = [] ) {
 		$this->media_options = $media_options;
+	}
+
+	/**
+	 * MediaTag init.
+	 *
+	 * @param array $media_options = []
+	 *
+	 * @return MediaTag
+	 */
+	public static function init( array $media_options = [] ): MediaTag {
+		return new self( $media_options );
 	}
 
 	/**
