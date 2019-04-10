@@ -19,7 +19,8 @@ class CommandsLoader {
 			$obj = new static;
 
 			$commands = [
-				new EnableMediaVersion()
+				new EnableMediaVersion(),
+				new MediaVersionBust(),
 			];
 
 			foreach ( $commands as $command ) {
