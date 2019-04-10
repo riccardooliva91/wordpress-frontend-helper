@@ -46,10 +46,12 @@ function _wpfh_instantiate_object( string $option_name, string $option_value, st
 add_action( 'plugins_loaded', function () {
 	\Wpfh\WpfhConfig::init();
 	$options = \Wpfh\WpfhOptions::init();
+	\Wpfh\Commands\CommandsLoader::build();
 
 	// Update media options if needed
-	$media_options = $options->get( 'media' );
-	if ( $media_options['enable_version'] && ( empty( $media_options['tag'] ) || $media_options['auto_bust_threshold'] < time() + $media_options['auto_bust_interval'] ) ) {
+	$media_options         = $options->get( 'media' );
+	$must_update_threshold = $media_options['auto_bust_threshold'] > 0 && ( $media_options['auto_bust_threshold'] < time() + $media_options['auto_bust_interval'] );
+	if ( $media_options['enable_version'] && ( empty( $media_options['tag'] ) || $must_update_threshold ) ) {
 		$media_options['tag']                 = uniqid();
 		$media_options['auto_bust_threshold'] = time();
 		$options->set( 'media', $media_options, true );
