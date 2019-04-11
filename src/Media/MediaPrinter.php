@@ -95,7 +95,7 @@ class MediaPrinter {
 	 * @return string
 	 */
 	public function get_tag( string $tag, array $meta = [] ): string {
-		$media      = MediaTag::init( $this->options['media'] );
+		$media      = MediaTag::init( $this->options->get( 'media' ) );
 		$media->tag = $tag;
 		foreach ( $meta as $key => $value ) {
 			$media->$key = $value;
@@ -110,9 +110,9 @@ class MediaPrinter {
 	 * @param string $tag
 	 * @param array $meta = []
 	 *
-	 * @return string
+	 * @return void
 	 */
-	public function write_tag( string $tag, array $meta = [] ): string {
+	public function write_tag( string $tag, array $meta = [] ) {
 		echo $this->get_tag( $tag, $meta );
 	}
 
@@ -120,6 +120,8 @@ class MediaPrinter {
 	 * Read the .wpfh_cb file if needed and updates the options
 	 *
 	 * @return void
+	 *
+	 * @codeCoverageIgnore
 	 */
 	protected function guess_version_tag() {
 		$media_options = $this->options->get( 'media' );
@@ -128,8 +130,8 @@ class MediaPrinter {
 		if ( ! $media_options['enable_version'] && file_exists( $wpfh_cb ) ) {
 			$media_options['enable_version'] = true;
 			$media_options['version_tag']    = trim( file_get_contents( $wpfh_cb ) );
-		}
 
-		$this->options->set( 'media', $media_options );
+			$this->options->set( 'media', $media_options );
+		}
 	}
 }
