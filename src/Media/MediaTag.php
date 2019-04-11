@@ -69,11 +69,11 @@ class MediaTag {
 	 * @return mixed
 	 */
 	public function __get( string $name ) {
-		return $this->meta[ $name ] ?? null;
+		return ( 'tag' === $name ) ? $this->tag : $this->meta[ $this->handle_camel_case( $name ) ] ?? null;
 	}
 
 	/**
-	 * Echo the HTML
+	 * Echo the HTML. Applies the version
 	 *
 	 * @return string
 	 */
@@ -81,11 +81,14 @@ class MediaTag {
 		$data = [];
 		foreach ( $this->meta as $key => $value ) {
 			if ( 'src' === $key && null !== $value ) {
-				$value = $this->apply_version( $value );
+				$value = empty( $this->media_options['enable_version'] ) ? $value : sprintf( '%s?v=%s', $value, $this->media_options['version_tag'] );
 			}
 			$data[] = null !== $value ? sprintf( '%s="%s"', $key, $value ) : $key;
 		}
-		$data[] = '/';
+		if ( ! empty( $data ) ) {
+			array_unshift( $data, '' );
+			$data[] = '';
+		}
 
 		return sprintf( '<%s%s/>', $this->tag, empty( $data ) ? ' ' : implode( ' ', $data ) );
 	}
@@ -101,23 +104,4 @@ class MediaTag {
 		return strtolower( implode( '-', preg_split( '/(?=[A-Z])/', $name ) ) );
 	}
 
-	/**
-	 * Apply the version tag to a src if the conditions allow so
-	 *
-	 * @param string $src
-	 *
-	 * @return string
-	 */
-	protected function apply_version( string $src ): string {
-		$tag     = '';
-		$wpfh_cb = get_template_directory() . '/.wpfh_cb';
-
-		if ( $this->media_options['enable_version'] ) {
-			$tag = $this->media_options['version_tag'];
-		} elseif ( file_exists( $wpfh_cb ) ) {
-			$tag = trim( file_get_contents( $wpfh_cb ) );
-		}
-
-		return empty( $tag ) ? $src : sprintf( '%s?v%s', $src, $tag );
-	}
 }

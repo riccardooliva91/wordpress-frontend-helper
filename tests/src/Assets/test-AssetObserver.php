@@ -7,7 +7,7 @@ use Brain\Monkey\Functions;
 
 /**
  * Class AssetObserver
- * @package Test\Wpfh
+ * @package Test\Wpfh\Assets
  */
 class AssetObserver extends \WpfhTestCase {
 

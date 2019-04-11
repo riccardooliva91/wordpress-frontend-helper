@@ -7,7 +7,7 @@ use Brain\Monkey\Functions;
 
 /**
  * Class Assetsmanager
- * @package Test\Wpfh
+ * @package Test\Wpfh\Assets
  */
 class Assetsmanager extends \WpfhTestCase {
 

@@ -41,6 +41,8 @@ class MediaPrinter {
 		$obj = null;
 		if ( ! $obj ) {
 			$obj = new static( $options );
+
+			$obj->guess_version_tag();
 		}
 
 		return $obj;
@@ -112,5 +114,22 @@ class MediaPrinter {
 	 */
 	public function write_tag( string $tag, array $meta = [] ): string {
 		echo $this->get_tag( $tag, $meta );
+	}
+
+	/**
+	 * Read the .wpfh_cb file if needed and updates the options
+	 *
+	 * @return void
+	 */
+	protected function guess_version_tag() {
+		$media_options = $this->options->get( 'media' );
+		$wpfh_cb       = get_template_directory() . '/.wpfh_cb';
+
+		if ( ! $media_options['enable_version'] && file_exists( $wpfh_cb ) ) {
+			$media_options['enable_version'] = true;
+			$media_options['version_tag']    = trim( file_get_contents( $wpfh_cb ) );
+		}
+
+		$this->options->set( 'media', $media_options );
 	}
 }
