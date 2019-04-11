@@ -5,6 +5,8 @@ namespace Wpfh\Commands;
 /**
  * Class CommandsLoader
  * @package Wpfh\Commands
+ *
+ * @codeCoverageIgnore
  */
 class CommandsLoader {
 

@@ -12,8 +12,6 @@ class MediaVersionBust extends Command {
 
 	/**
 	 * @inheritdoc
-	 *
-	 * @codeCoverageIgnore
 	 */
 	public function __invoke( array $args ) {
 		$options       = \Wpfh\WpfhOptions::init();

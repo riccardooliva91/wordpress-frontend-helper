@@ -12,8 +12,6 @@ class EnableMediaVersion extends Command {
 
 	/**
 	 * @inheritdoc
-	 *
-	 * @codeCoverageIgnore
 	 */
 	public function __invoke( array $args ) {
 		if ( ! in_array( $args[0], [ 'on', 'off' ] ) ) {
