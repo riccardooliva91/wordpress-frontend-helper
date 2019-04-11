@@ -221,4 +221,32 @@ class Assetsmanager extends \WpfhTestCase {
 		$this->assertFalse( Filters\applied( 'wpfh/on_bootstrap_deregister' ) > 0 );
 	}
 
+	public function test_if_string() {
+		$test = \Wpfh\Assets\AssetsManager::init( \Wpfh\Assets\AssetObserver::init() );
+		$test->add_condition( 'test', true );
+
+		$this->assertTrue( $test->if( 'test' ) );
+	}
+
+	public function test_if_bool() {
+		$test = \Wpfh\Assets\AssetsManager::init( \Wpfh\Assets\AssetObserver::init() );
+
+		$this->assertTrue( $test->if( true ) );
+	}
+
+	public function test_if_callable() {
+		$test = \Wpfh\Assets\AssetsManager::init( \Wpfh\Assets\AssetObserver::init() );
+		$callable = function() {
+			return true;
+		};
+
+		$this->assertTrue( $test->if( $callable ) );
+	}
+
+	public function test_if_invalid() {
+		$test = \Wpfh\Assets\AssetsManager::init( \Wpfh\Assets\AssetObserver::init() );
+
+		$this->assertFalse( $test->if( 0 ) );
+	}
+
 }
