@@ -2,9 +2,6 @@
 
 namespace Test\Wpfh\Media;
 
-use Brain\Monkey\Filters;
-use Brain\Monkey\Functions;
-
 /**
  * Class MediaTag
  * @package Test\Wpfh\Media

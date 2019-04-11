@@ -3,7 +3,6 @@
 namespace Test\Wpfh\Assets;
 
 use Brain\Monkey\Filters;
-use Brain\Monkey\Functions;
 
 /**
  * Class AssetObserver
