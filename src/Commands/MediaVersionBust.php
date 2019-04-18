@@ -25,6 +25,8 @@ class MediaVersionBust extends Command {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function get_name(): string {
 		return 'wpfh-media-version-bust';

@@ -14,12 +14,14 @@ class EnableMediaVersion extends Command {
 	 * @inheritdoc
 	 */
 	public function __invoke( array $args ) {
+		// @codeCoverageIgnoreStart
 		if ( ! in_array( $args[0], [ 'on', 'off' ] ) ) {
 			$this->exit_with_error( 'Invalid flag. Type "wp help wpfh-media-version" for more information.' );
 		}
 		if ( isset( $args[1] ) && ( ! is_numeric( $args[1] ) || $args[1] < 0 ) ) {
 			$this->exit_with_error( 'Invalid threshold. Type "wp help wpfh-media-version" for more information.' );
 		}
+		// @codeCoverageIgnoreEnd
 
 		$options       = \Wpfh\WpfhOptions::init();
 		$media_options = $options->get( 'media' );
@@ -35,6 +37,8 @@ class EnableMediaVersion extends Command {
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function get_name(): string {
 		return 'wpfh-media-version';
