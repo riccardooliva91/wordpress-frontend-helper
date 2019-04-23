@@ -34,6 +34,7 @@ class Wpfh {
 
 			add_filter( 'wpfh/get_helper', [ $obj, 'get_helper' ] );
 			add_filter( 'wpfh/get_assets_manager', [ $obj, 'get_assets_manager' ] );
+			add_filter( 'wpfh/get_media_printer', [ $obj, 'get_media_printer' ] );
 		}
 
 		return $obj;
