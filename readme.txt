@@ -14,7 +14,7 @@ A set of handful tools to ease your life as a frontend WP developer.
 This plugins aims to provide a set of functionalities for WordPress frontend developers. It has no direct effect on
 your website, nor it registers any kind of administration panel on your backend.
 You can file a detailed explanation and example use cases in the github wiki at this link:
-[https://github.com/riccardooliva91/wordpress-frontend-helper/wiki])https://github.com/riccardooliva91/wordpress-frontend-helper/wiki)
+[https://github.com/riccardooliva91/wordpress-frontend-helper/wiki](https://github.com/riccardooliva91/wordpress-frontend-helper/wiki)
 
 == Installation ==
 
