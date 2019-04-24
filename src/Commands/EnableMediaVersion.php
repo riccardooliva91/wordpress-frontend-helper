@@ -6,7 +6,7 @@ namespace Wpfh\Commands;
  * Class EnableMediaVersion
  * @package Wpfh\Commands
  *
- * Command signature: wp wpfh-media-version <on|off>
+ * Command signature: wp wpfh-media-version <on|off> <threshold>
  */
 class EnableMediaVersion extends Command {
 
