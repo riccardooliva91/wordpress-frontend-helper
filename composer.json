@@ -2,7 +2,7 @@
   "name": "riccardo/wordpress-frontend-helper",
   "description": "A handful set of tools for Wordpress forntend developers",
   "license": "MIT",
-  "type": "project",
+  "type": "library",
   "authors": [
     {
       "name": "riccardoliva",
