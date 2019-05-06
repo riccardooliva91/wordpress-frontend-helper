@@ -26,7 +26,7 @@ class WpfhOptions {
 	 * @return WpfhOptions
 	 */
 	public static function init(): WpfhOptions {
-		$obj = null;
+		static $obj = null;
 		if ( ! $obj ) {
 			$obj          = new static();
 			$obj->options = get_option( $obj->options_group_name );

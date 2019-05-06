@@ -38,7 +38,7 @@ class MediaPrinter {
 	 * @return MediaPrinter
 	 */
 	public static function init( WpfhOptions $options ): MediaPrinter {
-		$obj = null;
+		static $obj = null;
 		if ( ! $obj ) {
 			$obj = new static( $options );
 

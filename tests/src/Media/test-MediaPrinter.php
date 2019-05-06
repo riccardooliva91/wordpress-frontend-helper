@@ -11,9 +11,9 @@ use Brain\Monkey\Functions;
 class MediaPrinter extends \WpfhTestCase {
 
 	public function test_get_write_save_media() {
-		Functions\expect( 'get_template_directory' )->once()->andReturn( '/dir' );
+		Functions\expect( 'get_template_directory' )->andReturn( '/dir' );
 		$options = \Mockery::mock( \Wpfh\WpfhOptions::class )
-		                   ->shouldReceive( 'get' )->twice()->andReturn( [ 'enable_version' => true, 'version_tag' => '123' ] )
+		                   ->shouldReceive( 'get' )->andReturn( [ 'enable_version' => true, 'version_tag' => '123' ] )
 		                   ->getMock();
 		$test    = \Wpfh\Media\MediaPrinter::init( $options );
 
@@ -25,9 +25,9 @@ class MediaPrinter extends \WpfhTestCase {
 	}
 
 	public function test_get_write_save_media_invalid() {
-		Functions\expect( 'get_template_directory' )->once()->andReturn( '/dir' );
+		Functions\expect( 'get_template_directory' )->andReturn( '/dir' );
 		$options = \Mockery::mock( \Wpfh\WpfhOptions::class )
-		                   ->shouldReceive( 'get' )->once()->andReturn( [ 'enable_version' => true, 'version_tag' => '123' ] )
+		                   ->shouldReceive( 'get' )->andReturn( [ 'enable_version' => true, 'version_tag' => '123' ] )
 		                   ->getMock();
 		$test    = \Wpfh\Media\MediaPrinter::init( $options );
 
@@ -38,9 +38,9 @@ class MediaPrinter extends \WpfhTestCase {
 	}
 
 	public function test_write_tag() {
-		Functions\expect( 'get_template_directory' )->once()->andReturn( '/dir' );
+		Functions\expect( 'get_template_directory' )->andReturn( '/dir' );
 		$options = \Mockery::mock( \Wpfh\WpfhOptions::class )
-		                   ->shouldReceive( 'get' )->twice()->andReturn( [ 'enable_version' => true, 'version_tag' => '123' ] )
+		                   ->shouldReceive( 'get' )->andReturn( [ 'enable_version' => true, 'version_tag' => '123' ] )
 		                   ->getMock();
 		$test    = \Wpfh\Media\MediaPrinter::init( $options );
 

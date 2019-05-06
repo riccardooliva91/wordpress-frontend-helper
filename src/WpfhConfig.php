@@ -33,7 +33,7 @@ class WpfhConfig {
 	 * @return WpfhConfig
 	 */
 	public static function init(): WpfhConfig {
-		$obj = null;
+		static $obj = null;
 		if ( ! $obj ) {
 			$obj = new static();
 

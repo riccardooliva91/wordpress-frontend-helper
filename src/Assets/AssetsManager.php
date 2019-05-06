@@ -61,7 +61,7 @@ class AssetsManager {
 	 * @return AssetsManager
 	 */
 	public static function init( AssetObserver $observer ): self {
-		$obj = null;
+		static $obj = null;
 		if ( ! $obj ) {
 			$obj = new static( $observer );
 		}

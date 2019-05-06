@@ -26,7 +26,7 @@ class AssetObserver {
 	 * @return AssetObserver
 	 */
 	public static function init(): self {
-		$obj = null;
+		static $obj = null;
 		if ( ! $obj ) {
 			$obj = new static();
 		}
