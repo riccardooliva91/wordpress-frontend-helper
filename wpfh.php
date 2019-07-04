@@ -50,7 +50,7 @@ add_action( 'plugins_loaded', function () {
 
 	// Update media options if needed
 	$media_options         = $options->get( 'media' );
-	$must_update_threshold = $media_options['auto_bust_threshold'] > 0 && ( $media_options['auto_bust_threshold'] < time() + $media_options['auto_bust_interval'] );
+	$must_update_threshold = $media_options['auto_bust_threshold'] > 0 && ( $media_options['auto_bust_threshold'] + $media_options['auto_bust_interval'] < time() );
 	if ( $media_options['enable_version'] && ( empty( $media_options['tag'] ) || $must_update_threshold ) ) {
 		$media_options['tag']                 = uniqid();
 		$media_options['auto_bust_threshold'] = time();
